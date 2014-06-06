@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% set active_page = "contacts" %}
+{% block title %}Contacts{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+	</style>
+{% endblock %}
+{% block content %}
+	<body class=command>
+		<h2>Contact Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for command in commands %}
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="offset1">
+					<b>Contact: </b>{{ command.Contact|escape }}</br>
+					<b>E-Mail: </b>{{ command.EMail|escape }}</br>
+					<b>Command: </b>{{ command.Command|escape }}</br>
+					</br>
+					<!--
+					<form action="/contactremove" method="post" class="form-horizontal">
+						<div class="control-group">
+							<input type="hidden" name="ToRemove" value="{{ command.Command|escape }}"/>
+							<button type="submit" class="btn">Remove Contact</button>
+						</div>
+					</form>
+					-->
+					<hr width="600" align="left" size="2" color="black"></hr>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		<form action="/contactstore" method="post" class="form-horizontal">
+			<div><h2>Contact to Add</h2></div>
+			<div class="control-group">
+				<label class="control-label" for="Contact">Contact</label>
+				<div class="controls">
+					<input type="text" id="Contact" name="Contact" placeholder="John Doe">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="EMail">E-Mail Address</label>
+				<div class="controls">
+					<input type="text" id="EMail" name="EMail" placeholder="example@email.com">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="Command">Command</label>
+				<div class="controls">
+					<input type="text" id="Command" name="Command" placeholder="ARC, CFO, EMI, etc.">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">Add Contact</button>
+				</div>
+			</div>
+		</form>
+
+		<hr width="600" align="left" size="2" color="black"></hr>
+		
+		<form action="/commandremove" method="post" class="form-horizontal">
+			<div><h2>Contact to Remove</h2></div>
+			<div class="control-group">
+				<label class="control-label" for="ToRemove">Contact Name</label>
+				<div class="controls">
+					<input type="text" id="ToRemove" name="ToRemove" placeholder="ARC, CFO, EMI, etc.">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">Remove Contact</button>
+				</div>
+			</div>
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+	</body>
+{% endblock %}

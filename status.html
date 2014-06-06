@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% set active_page = "status" %}
+{% block title %}Status{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+	</style>
+{% endblock %}
+{% block content %}
+	<body class=status>
+
+		<h2>Status Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for update in updates %}
+		<div class="row-fluid">
+			<div class="span5">
+				<div class="offset1">
+					{% if update.Status == "Down" %}
+						<div class="alert alert-error">
+						<b>Device: </b><a href ="/deviceinfo/{{ update.DeviceName }}">{{ update.Device|escape }}</a></br>
+						<b>Status: </b>{{ update.Status|escape }}</br>
+						<b>Note: </b>{{ update.Note|escape }}</br>
+						<b>Date: </b>
+							<script type=text/javascript>
+
+								var d=new Date( {{ update.ModDate|escape }} );
+								document.write(d);
+
+							</script>
+						</br>
+						</div>
+						{% else %}
+						<div class="alert alert-success">
+						<b>Device: </b><a href ="/deviceinfo/{{ update.DeviceName }}">{{ update.Device|escape }}</a></br>
+						<b>Status: </b>{{ update.Status|escape }}</br>
+						<b>Note: </b>{{ update.Note|escape }}</br>
+						<b>Date: </b>
+							<script type=text/javascript>
+
+								var d=new Date( {{ update.ModDate|escape }} );
+								document.write(d);
+
+							</script>
+						</br>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		<form action="/updater" method="post" class="form-horizontal">
+			
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">Force Update</button>
+				</div>
+			</div>
+			
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+    	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        <script src="stylesheets/js/bootstrap.js"></script>
+
+	</body>
+{% endblock %}

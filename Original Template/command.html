@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+	</head>
+	<body class=command>
+
+		<ul>
+		<li><a href="/">Devices</a></li>
+		<li><a href="/command" id="commandpage">Command</a></li>
+		<li><a href="/status">Status</a></li>
+		</ul>
+	
+		<h2>Device Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for command in commands %}
+			<blockquote><b>Command: </b>{{ command.Command|escape }}</blockquote>
+			<blockquote><b>Contact: </b>{{ command.Contact|escape }}</blockquote>
+			<blockquote><b>E-Mail: </b>{{ command.EMail|escape }}</blockquote>
+			
+			<form action="/commandremove" method="post">
+			<input type="hidden" name="ToRemove" value="{{ command.Command|escape }}"/>
+			<div><input type="submit" value="Remove Command"></div>
+			</form>
+			
+			<hr width="600" align="left" size="2" color="black"></hr>
+		{% endfor %}
+		
+		<form action="/commandstore" method="post">
+			<div><h2>Command to Add</h2></div>
+			<div>Command: <textarea name="Command" rows="1" cols ="60"></textarea></div>
+			<div>Contact: <textarea name="Contact" rows="1" cols="60"></textarea></div>
+			<div>E-Mail Address: <textarea name="EMail" rows="1" cols="60"></textarea></div>
+			<div><input type="submit" value="Add Command"></div>
+		</form>
+
+		<hr width="600" align="left" size="2" color="black"></hr>
+		
+		<form action="/commandremove" method="post">
+			<div><h2>Command to Remove</h2></div>
+			<div>Command Name: <textarea name="ToRemove" rows="1" cols="60"></textarea></div>
+			<div><input type="submit" value="Remove Command"></div>
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+	</body>
+</html>

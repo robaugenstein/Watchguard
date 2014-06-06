@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+	</head>
+	<body class=index>
+
+		<ul>
+		<li><a href="/" id="indexpage">Devices</a></li>
+		<li><a href="/command">Command</a></li>
+		<li><a href="/status">Status</a></li>
+		</ul>
+	
+		<h2>Device Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for device in devices %}
+			<blockquote><b>Command: </b>{{ device.Command|escape }}</blockquote>
+			<blockquote><b>Description: </b>{{ device.Description|escape }}</blockquote>
+			<blockquote><b>Device Name: </b>{{ device.DeviceName|escape }}</blockquote>
+			<blockquote><b>IP: </b>{{ device.IP|escape }}</blockquote>
+			<blockquote><b>Port: </b>{{ device.Port|escape }}</blockquote>
+			
+			<form action="/remove" method="post">
+			<input type="hidden" name="ToRemove" value="{{ device.DeviceName|escape }}"/>
+			<div><input type="submit" value="Remove Device"></div>
+			</form>
+
+			<hr width="600" align="left" size="2" color="black"></hr>
+			
+		{% endfor %}
+		
+		<form action="/store" method="post">
+			<div><h2>Device to Add</h2></div>
+			<div>Device Name: <textarea name="DeviceName" rows="1" cols ="60"></textarea></div>
+			<div>Description: <textarea name="Description" rows="1" cols="60"></textarea></div>
+			<div>Command: <textarea name="Command" rows="1" cols="60"></textarea></div>
+			<div>IP Address: <textarea name="IP" rows="1" cols="15"></textarea></div>
+			<div>Port: <textarea name="Port" rows="1" cols="5"></textarea></div>
+			<div><input type="submit" value="Add Device"></div>
+		</form>
+
+		<hr width="600" align="left" size="2" color="black"></hr>
+		
+		<form action="/remove" method="post">
+			<div><h2>Device to Remove</h2></div>
+			<div>Device Name: <textarea name="ToRemove" rows="1" cols="60"></textarea></div>
+			<div><input type="submit" value="Remove Device"></div>
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+	</body>
+</html>

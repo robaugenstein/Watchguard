@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% set active_page = "command" %}
+{% block title %}Command{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+	</style>
+{% endblock %}
+{% block content %}
+	<body class=command>
+		<h2>Device Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for command in commands %}
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="offset1">
+					<b>Command: </b>{{ command.Command|escape }}</br>
+					<b>Contact: </b>{{ command.Contact|escape }}</br>
+					<b>E-Mail: </b>{{ command.EMail|escape }}</br>
+					</br>
+					
+					<form action="/commandremove" method="post" class="form-horizontal">
+						<div class="control-group">
+							<input type="hidden" name="ToRemove" value="{{ command.Command|escape }}"/>
+							<!-- <div><input type="submit" value="Remove Command"></div> -->
+							<button type="submit" class="btn">Remove Contact</button>
+						</div>
+					</form>
+					
+					<hr width="600" align="left" size="2" color="black"></hr>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		<form action="/commandstore" method="post" class="form-horizontal">
+			<div><h2>Command to Add</h2></div>
+			<!-- <div>Command: <textarea name="Command" rows="1" cols ="60"></textarea></div> -->
+			<div class="control-group">
+				<label class="control-label" for="Command">Command</label>
+				<div class="controls">
+					<input type="text" id="Command" name="Command" placeholder="ARC, CFO, EMI, etc.">
+				</div>
+			</div>
+			<!-- <div>Contact: <textarea name="Contact" rows="1" cols="60"></textarea></div> -->
+			<div class="control-group">
+				<label class="control-label" for="Contact">Contact</label>
+				<div class="controls">
+					<input type="text" id="Contact" name="Contact" placeholder="John Doe">
+				</div>
+			</div>
+			<!-- <div>E-Mail Address: <textarea name="EMail" rows="1" cols="60"></textarea></div> -->
+			<div class="control-group">
+				<label class="control-label" for="EMail">E-Mail Address</label>
+				<div class="controls">
+					<input type="text" id="EMail" name="EMail" placeholder="example@email.com">
+				</div>
+			</div>
+			<!-- <div><input type="submit" value="Add Command"></div> -->
+			<div class="control-group">
+				<div class="controls">
+					<!-- <div><input type="submit" value="Add Device"></div> -->
+					<button type="submit" class="btn">Add Command</button>
+				</div>
+			</div>
+		</form>
+
+		<hr width="600" align="left" size="2" color="black"></hr>
+		
+		<form action="/commandremove" method="post" class="form-horizontal">
+			<div><h2>Command to Remove</h2></div>
+			<!-- <div>Command Name: <textarea name="ToRemove" rows="1" cols="60"></textarea></div> -->
+			<div class="control-group">
+				<label class="control-label" for="ToRemove">Command Name</label>
+				<div class="controls">
+					<input type="text" id="ToRemove" name="ToRemove" placeholder="ARC, CFO, EMI, etc.">
+				</div>
+			</div>
+			<!-- <div><input type="submit" value="Remove Command"></div> -->
+			<div class="control-group">
+				<div class="controls">
+					<!-- <div><input type="submit" value="Remove Device"></div> -->
+					<button type="submit" class="btn">Remove Command</button>
+				</div>
+			</div>
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+	</body>
+{% endblock %}

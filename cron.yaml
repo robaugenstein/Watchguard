@@ -1,0 +1,8 @@
+cron:
+- description: Constant device check
+  url: /cronupdater
+  schedule: every 5 minutes synchronized
+
+- description: Remove old records
+  url: /purgeupdates
+  schedule: every 24 hours synchronized

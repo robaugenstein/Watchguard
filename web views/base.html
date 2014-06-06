@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% block head %}
+	<!-- <link rel="stylesheet" href="/stylesheets/main.css" /> -->
+	<link rel="stylesheet" href="/stylesheets/css/bootstrap.css" />
+    <title>{% block title %}{% endblock %} - USC Central</title>
+    {% endblock %}
+	
+	{% set navigation_bar = [
+    ('/main', 'devices', 'Devices'),
+    ('/command', 'command', 'Command'),
+    ('/', 'status', 'Status'),
+    ('/login', 'login', 'Login')
+	] -%}
+	
+	{% set active_page = active_page|default('devices') -%}
+	
+</head>
+<body>
+	<div class="navbar">
+		<div class="navbar-inner">
+			<ul class="nav">
+			{% for href, id, caption in navigation_bar %}
+				<li {% if id == active_page %} class="active"{% endif %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+	    <div id="content">{% block content %}{% endblock %}</div>
+    <div class="modal-footer">
+        {% block footer %}
+		</br>
+        &copy; Copyright 2013 by <a href="mailto:Robert_Augenstein@usc.salvationarmy.org" class="email">Robert Augenstein</a>.
+        {% endblock %}
+    </div>
+</body>

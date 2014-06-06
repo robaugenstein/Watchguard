@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+	</head>
+	<body class=status>
+
+		<ul>
+		<li><a href="/">Devices</a></li>
+		<li><a href="/command">Command</a></li>
+		<li><a href="/status" id="statuspage">Status</a></li>
+		</ul>
+	
+		<h2>Status Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for update in updates %}
+			<blockquote><b>Device: </b>{{ update.DeviceName|escape }}</blockquote>
+			<blockquote><b>Status: </b>{{ update.Status|escape }}</blockquote>
+			<blockquote><b>Note: </b>{{ update.Note|escape }}</blockquote>
+			<blockquote><b>Date: </b>{{ update.Date|escape }}</blockquote>
+			<hr width="600" align="left" size="2" color="black"></hr>
+		{% endfor %}
+		
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+	</body>
+</html>

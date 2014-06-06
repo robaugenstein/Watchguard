@@ -1,0 +1,56 @@
+Device Handler (Converted)
+
+	Main Page
+	- Get
+		- Called by /main
+		- Renders index.html
+
+	Device Store
+	- Post
+		- Called by /store
+		- Redirects to /main
+
+Command Handler (First Step of Conversion) (To Become Contact Handler)
+
+	Command Page
+	- Get
+		- Called by /command
+		- Renders command.html
+
+	Command Store
+	- Post
+		- Called by /commandstore
+		- Redirects to /command
+
+Status Handler (Converted)
+
+	Status Page
+	- Get
+		- Called by /status
+		- Renders status.html
+
+	Updater
+	- Post
+		- Called by /updater
+		- Redirects to /status
+
+UpdateStore
+- Post
+	- Called by /updatestore
+	- Used for external Post requests
+	- May exclude initially while working out how this would integrate with the rest of the logic
+
+Device Remove
+- Post
+	- Called by /remove
+	- Redirects to /main
+
+Command Remove
+- Post
+	- Called by /commandremove
+	- Redirects to /command
+
+Login Handler
+- Get
+	- Called by login
+	- Renders login.html

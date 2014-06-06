@@ -1,0 +1,53 @@
+JINJA2
+
+
+	{% set navigation_bar = [
+	('/', 'devices', 'Devices'),
+	('/command', 'command', 'Command'),
+	('/status', 'status', 'Status')
+	] -%}
+	{% set active_page = active_page|default('status') -%}
+
+
+	<ul id="navigation">
+	{% for href, id, caption in navigation_bar %}
+	  <li{% if id == active_page %} class="active"{% endif
+	  %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+	{% endfor %}
+	</ul>
+
+	<form name="submitForm" method="POST" action="/servlet/ServletName">
+    <input type="hidden" name="param1" value="param1Value">
+    <A HREF="javascript:document.submitForm.submit()">Click Me</A>
+	</form>
+
+	<form name="submitForm" method="POST" action="/deviceinfo">
+		<input type="hidden" name="DeviceName" value={{ update.DeviceName|escape }}>
+		<b>Device: </b><a href ="javascript:;" onclick="parentNode.submit();" target="_blank">{{ update.Device|escape }}</a></br>
+	</form>
+
+					<div class="offset1"{% if update.Status == "Down" %}; style="background-color:#b94a48" {% else %} style="background-color:#468847"{% endif %}>
+					
+		{% for update in updates %}
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="offset1"{% if update.Status == "Down" %}; class="alert alert-error" {% else %} style="background-color:#468847"{% endif %}>
+						<b>Device: </b><a href ="/deviceinfo/{{ update.DeviceName }}">{{ update.Device|escape }}</a></br>
+
+					<b>Status: </b>{{ update.Status|escape }}</br>
+					<b>Note: </b>{{ update.Note|escape }}</br>
+					<b>Date: </b>
+						<script type=text/javascript>
+
+							var d=new Date( {{ update.ModDate|escape }} );
+							document.write(d);
+
+						</script>
+					</br>
+
+					<hr width="600" align="left" size="2" color="black"></hr>
+				</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}

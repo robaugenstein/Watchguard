@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% set active_page = "status" %}
+{% block title %}Status{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+	</style>
+{% endblock %}
+{% block content %}
+	<body class=status>
+
+		<h2>Status Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for update in updates %}
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="offset1"{% if update.Status == "Down" %}; style="color:red" {% endif %}>
+					<b>Device: </b>{{ update.Device|escape }}</br>
+					<b>Status: </b>{{ update.Status|escape }}</br>
+					<b>Note: </b>{{ update.Note|escape }}</br>
+					<b>Date: </b>{{ update.Date|escape }}</br>
+					<hr width="600" align="left" size="2" color="black"></hr>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		<form action="/updater" method="get" class="form-horizontal">
+			
+			<div class="control-group">
+				<div class="controls">
+					<!-- <div><input type="submit" value="Remove Device"></div> -->
+					<button type="submit" class="btn">Force Update</button>
+				</div>
+			</div>
+			
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+	</body>
+{% endblock %}

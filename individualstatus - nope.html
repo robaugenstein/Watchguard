@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<!-- <link rel="stylesheet" href="/stylesheets/main.css" /> -->
+	<link rel="stylesheet" href="/stylesheets/css/bootstrap.css" />
+
+    <title></title>
+
+	
+</head>
+<body>
+		<div id="{{ updates.DeviceName|escape }}Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="{{ updates.DeviceName|escape }}ModalLabel" aria-hidden="true">
+
+			<h2>Status Entries</h2>
+			<hr width="600" align="left" size="2" color="black"></hr>
+		  
+			<div class="accordion" id="accordion3">
+				{% for update in updates %}
+					<div class="accordion-group">	
+						<div class="row-fluid">
+							<div class="span4">
+								<div class="offset1">
+									{% if update.Status == "Down" %}
+										<div class="alert alert-error">
+											<div class="accordion-heading">
+												<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#{{ update.Date }}">
+													{{ update.Device|escape }}
+												</a>
+											</div>
+											<div id="{{ update.Date }}" class="accordion-body collapse in">
+												<div class="accordion-inner">
+													<b>Status: </b>{{ update.Status|escape }}</br>
+													<b>Note: </b>{{ update.Note|escape }}</br>
+													<b>Date: </b>
+														<script type=text/javascript>
+															var d=new Date( {{ update.ModDate|escape }} );
+															document.write(d);
+														</script>
+												</div>
+											</div>
+										</div>
+									{% else %}
+										<div class="alert alert-success">
+											<div class="accordion-heading">
+												<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#{{ update.Date|escape }}">
+												{{ update.Device|escape }}
+												</a>
+											</div>
+											<div id="{{ update.Date }}" class="accordion-body collapse in">
+												<div class="accordion-inner">
+													<b>Status: </b>{{ update.Status|escape }}</br>
+													<b>Note: </b>{{ update.Note|escape }}</br>
+													<b>Date: </b>
+														<script type=text/javascript>
+															var d=new Date( {{ update.ModDate|escape }} );
+															document.write(d);
+														</script>
+												</div>
+											</div>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    	<script src="stylesheets/js/jquery-2.0.2.js"> </script>
+        <script src="stylesheets/js/bootstrap.js"></script>
+</body>

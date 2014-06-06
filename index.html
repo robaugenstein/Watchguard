@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% set active_page = "devices" %}
+{% block title %}Devices{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+	</style>
+{% endblock %}
+{% block content %}
+	<body class=index>
+		<h2>Device Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+	  
+		{% for device in devices %}
+			<div class="row-fluid">
+				<div class="span8">
+					<div class="offset1">
+						<b>Command: </b>{{ device.Command|escape }}</br>
+						<b>Description: </b>{{ device.Description|escape }}</br>
+						<b>Device Name: </b>{{ device.DeviceName|escape }}</br>
+						<b>IP: </b>{{ device.IP|escape }}</br>
+						<b>Port: </b>{{ device.Port|escape }}</br>
+						</br>
+
+						<!--
+						<form action="/remove" method="post" class="form-horizontal">
+							<div class="control-group">
+								<input type="hidden" name="ToRemove" value="{{ device.DeviceName|escape }}"/>
+								<button type="submit" class="btn">Remove Device</button>
+							</div>
+						</form>
+						-->
+
+						<hr width="600" align="left" size="2" color="black"></hr>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
+		<form action="/store" method="post" class="form-horizontal">
+			<div><h2>Device to Add</h2></div>
+			<div class="control-group">
+				<label class="control-label" for="DeviceName">Device Name</label>
+				<div class="controls">
+					<input type="text" id="DeviceName" name="DeviceName" placeholder="Device Name">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="Description">Description</label>
+				<div class="controls">
+					<input type="text" id="Description" name="Description" placeholder="Description">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="Command">Command</label>
+				<div class="controls">
+					<input type="text" id="Command" name="Command" placeholder="THQ, CFO, ARC, etc.">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="IP">IP Address</label>
+				<div class="controls">
+					<input type="text" id="IP" name="IP" placeholder="xxx.xxx.xxx.xxx">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="Port">Port</label>
+				<div class="controls">
+					<input type="text" id="Port" name="Port" placeholder="4110, 8080, etc.">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">Add Device</button>
+				</div>
+			</div>
+		</form>
+
+		<hr width="600" align="left" size="2" color="black"></hr>
+		
+		<form action="/remove" method="post" class="form-horizontal">
+			<div><h2>Device to Remove</h2></div>
+			<div class="control-group">
+				<label class="control-label" for="ToRemove">Device Name</label>
+				<div class="controls">
+					<input type="text" id="ToRemove" name="ToRemove" placeholder="Device Name">
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">Remove Device</button>
+				</div>
+			</div>
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+	</body>
+{% endblock %}

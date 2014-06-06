@@ -1,0 +1,47 @@
+"""def testconnect(x):
+			s = socket.socket()
+
+			try:
+			#Attempt the socket connection to the desired IP Address and Port
+				#s.connect((address, port))
+				s.connect((Location[x]['IPAddress'],Location[x]['Port']))
+				
+			except Exception as e:
+
+				"""if( Location[x]['FailCount'] < 5):
+					print('%s at %s:%d failed. Exception type is %s' % (Location[x]['Device'],Location[x]['IPAddress'],Location[x]['Port'],e))
+					Location[x]['FailCount']+=1
+					
+				else:
+					sendmessage(e, x)
+					Location[x]['FailCount']+=1"""
+					
+				form_fields = {
+				"DeviceName": Location[x]['DeviceName'],
+				"Status": "Down",
+				}
+				form_data = urllib.urlencode(form_fields)
+				result = urlfetch.fetch(url=url,
+										payload=form_data,
+										method=urlfetch.POST,
+										headers={'Content-Type': 'application/x-www-form-urlencoded'})
+
+			else:
+				"""print(Location[x]['Device'] + " Success " + str(time.ctime()))
+				
+				if(Location[x]['FailCount']>0):    
+					Location[x]['SuccessCount']=Location[x]['SuccessCount']+1	
+					if(Location[x]['SuccessCount'] == 5):
+						#Send a success message
+						Location[x]['FailCount']=0
+						Location[x]['SuccessCount']=0"""
+						
+				form_fields = {
+				"DeviceName": Location[x]['DeviceName'],
+				"Status": "Up",
+				}
+				form_data = urllib.urlencode(form_fields)
+				result = urlfetch.fetch(url=url,
+										payload=form_data,
+										method=urlfetch.POST,
+										headers={'Content-Type': 'application/x-www-form-urlencoded'})"""

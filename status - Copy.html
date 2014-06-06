@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% set active_page = "status" %}
+{% block title %}Status{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+	</style>
+{% endblock %}
+{% block content %}
+	<body class=status>
+
+		<h2>Status Entries</h2>
+		<hr width="600" align="left" size="2" color="black"></hr>
+
+		<div class="accordion" id="accordion2">
+			{% for update in updates %}
+				<div class="accordion-group">	
+					<div class="row-fluid">
+						<div class="span4">
+							<div class="offset1">
+								{% if update.Status == "Down" %}
+									<div class="alert alert-error">
+										<div class="accordion-heading">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ update.DeviceName|escape }}">
+												{{ update.Device|escape }}
+											</a>
+										</div>
+										<div id="{{ update.DeviceName }}" class="accordion-body collapse">
+											<div class="accordion-inner">
+												<b>Status: </b>{{ update.Status|escape }}</br>
+												<b>Note: </b>{{ update.Note|escape }}</br>
+												<b>Date: </b>
+													<script type=text/javascript>
+														var d=new Date( {{ update.ModDate|escape }} );
+														document.write(d);
+													</script>
+												</br>
+												<a href ="/deviceinfo/{{ update.DeviceName }}">Device History</a>
+											</div>
+										</div>
+									</div>
+								{% else %}
+									<div class="alert alert-success">
+										<div class="accordion-heading">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{ update.DeviceName|escape }}">
+											{{ update.Device|escape }}
+											</a>
+										</div>
+										<div id="{{ update.DeviceName|escape }}" class="accordion-body collapse">
+											<div class="accordion-inner">
+												<b>Status: </b>{{ update.Status|escape }}</br>
+												<b>Note: </b>{{ update.Note|escape }}</br>
+												<b>Date: </b>
+													<script type=text/javascript>
+														var d=new Date( {{ update.ModDate|escape }} );
+														document.write(d);
+													</script>
+												</br>
+												<a href ="/deviceinfo/{{ update.DeviceName }}">Device History</a>
+
+												<!-- Modal Testing -->
+
+												<div id="{{ update.DeviceName|escape }}Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="{{ update.DeviceName|escape }}ModalLabel" aria-hidden="true">
+													<div class="modal-header">
+										              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										              <h3 id="{{ update.DeviceName|escape }}ModalLabel">{{ update.Device }}</h3>
+										            </div>
+										            <div class="modal-body">
+
+										            </div>
+										            <div class="modal-footer">
+										              <button class="btn" data-dismiss="modal">Close</button>
+										              <button class="btn btn-primary">Save changes</button>
+										            </div>
+												</div>
+												<div class="bs-docs-example" style="padding-bottom: 24px;">
+													<a data-toggle="modal" href="deviceinfo/{{ update.DeviceName|escape }}" data-target="#{{ update.DeviceName|escape }}Modal" class="btn btn-primary btn-small">Device History</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		<form action="/updater" method="post" class="form-horizontal">
+			
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">Force Update</button>
+				</div>
+			</div>
+			
+		</form>
+
+		<a href="{{ url }}">{{ url_linktext }}</a>
+
+    	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    	<script src="stylesheets/js/jquery-2.0.2.js"> </script>
+        <script src="stylesheets/js/bootstrap.js"></script>
+
+	</body>
+{% endblock %}

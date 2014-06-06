@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% block head %}
+	<link rel="stylesheet" href="/stylesheets/main.css" />
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+	
+	{% set navigation_bar = [
+    ('/', 'index', 'Index'),
+    ('/downloads/', 'downloads', 'Downloads'),
+    ('/about/', 'about', 'About')
+	] -%}
+	{% set active_page = active_page|default('index') -%}
+		
+</head>
+<body>
+	<div id="header">
+	{% set Test = 'Test' %}
+	{{ Test }}
+	<ul id="navigation">
+	{% for href, id, caption in navigation_bar %}
+		<li{% if id == active_page %} class="active"{% endif %}><a href="{{ href|e }}">{{ caption|e }}</a>/li>
+	{% endfor %}
+	</ul>
+	</div>
+	
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+        {% endblock %}
+    </div>
+</body>

@@ -1,0 +1,13 @@
+Future Tasks
+
+- Operator Overloading (Completed)
+	- Combine StatusPage and StatusStore to make StatusHandler which handles for the GET and POST requests for that page
+		- Can also be done with the Commands and Devices
+- Add User Authentication
+- Add Notification
+- Fix the UTC time code stamp on the Status Entries (Completed)
+- Delete older Update entries (Close to Completed)
+   - Remove success entries over 30 days old
+- Look into how to do some historical modelling or reporting
+- Mobile View
+- From status page be able to select a device and get a pop up showing history for just that device

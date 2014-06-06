@@ -1,0 +1,51 @@
+
+<body class="modal-body">
+  		<div class="accordion" id="accordion3">
+		{% for update in deviceupdates %}
+			<div class="accordion-group">	
+				<div class="row-fluid">
+					<div class="span10">
+						<div class="offset1">
+							{% if update.Status == "Down" %}
+								<div class="alert alert-error">
+									<div class="accordion-heading">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#{{ update.Date }}">
+											{{ update.Device|escape }}
+										</a>
+									</div>
+									<div id="{{ update.Date }}" class="accordion-body collapse in">
+										<div class="accordion-inner">
+											<b>Status: </b>{{ update.Status|escape }}</br>
+											<b>Note: </b>{{ update.Note|escape }}</br>
+											<b>Date: </b>{{ update.Date|escape }}</br>
+										</div>
+									</div>
+								</div>
+							{% else %}
+								<div class="alert alert-success">
+									<div class="accordion-heading">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#{{ update.Date|escape }}">
+										{{ update.Device|escape }}
+										</a>
+									</div>
+									<div id="{{ update.Date }}" class="accordion-body collapse in">
+										<div class="accordion-inner">
+											<b>Status: </b>{{ update.Status|escape }}</br>
+											<b>Note: </b>{{ update.Note|escape }}</br>
+											<b>Date: </b>{{ update.Date|escape }}</br>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	<script src="stylesheets/js/jquery-2.0.2.js"> </script>
+    <script src="stylesheets/js/bootstrap.js"></script>
+
+</body>
